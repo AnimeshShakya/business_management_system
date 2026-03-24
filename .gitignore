@@ -1,23 +1,44 @@
-/node_modules
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment / secrets
+/.env
+/.env.*
+!/.env.example
+
+# Runtime / cache / logs
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitignore
 /public/hot
 /public/storage
+/public/build
 /storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
-npm-debug.log
-error_log
-yarn-error.log
-/.idea
-/.vscode
-.DS_Store
-storage/backup/*
-storage/.DS_Store
-/Modules/Gateways
+/storage/pail
+/storage/backup/*
 /storage/install.zip
 /storage/update.zip
+
+# Local tooling
+/.vagrant/
+/.idea/
+/.vscode/
+Homestead.yaml
+Homestead.json
+docker-compose.override.yml
+
+# PHP / JS tooling caches
+/.phpunit.result.cache
+/.phpactor.json
+npm-debug.log
+yarn-error.log
+
+# Project-specific
+/Modules/Gateways
 database_backup_*
+auth.json
+error_log
+
+# OS files
+.DS_Store
+storage/.DS_Store
