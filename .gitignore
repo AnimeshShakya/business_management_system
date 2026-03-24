@@ -6,6 +6,22 @@
 /.env
 /.env.*
 !/.env.example
+/.env.backup*
+
+# Certificates / private keys
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_rsa.pub
+id_dsa
+id_dsa.pub
+
+# Service account / local auth artifacts
+*service-account*.json
+.envrc
 
 # Runtime / cache / logs
 /bootstrap/cache/*.php
@@ -18,6 +34,12 @@
 /storage/backup/*
 /storage/install.zip
 /storage/update.zip
+/storage/logs/*.log
+
+# Local database files
+*.sqlite
+*.sql
+*.dump
 
 # Local tooling
 /.vagrant/
