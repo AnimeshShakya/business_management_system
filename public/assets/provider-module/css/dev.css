@@ -1,0 +1,20 @@
+.active-menu {
+    color: #ff5e00;
+}
+
+.hide-div {
+    display: none;
+}
+
+.statistics-card__style2 .btn--warning {
+    background: #f8924f;
+}
+.pending_withdraw {
+    background-color: #e0f1ff;
+}
+.already_withdraw {
+    background-color: #cdffe2;
+}
+.total_earning {
+    background-color: #fff5e1;
+}

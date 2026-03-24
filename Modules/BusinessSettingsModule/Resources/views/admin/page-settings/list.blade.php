@@ -1,0 +1,258 @@
+@extends('adminmodule::layouts.new-master')
+
+@section('title',translate('page_setup'))
+
+@section('content')
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="page-title-wrap mb-3">
+                <h2 class="page-title">{{translate('Page Settings')}}</h2>
+            </div>
+            <div class="pick-map mb-20 p-12 rounded d-flex flex-md-nowrap flex-wrap align-items-center gap-1 bg-primary bg-opacity-10">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_9464_2249)">
+                        <path d="M9.79125 1.44318L10.5117 0.270677C10.6797 -0.00465646 11.039 -0.0898231 11.3138 0.0793436C11.5885 0.247927 11.6743 0.606677 11.5051 0.881427L10.7847 2.05393C10.675 2.23359 10.4831 2.33218 10.2871 2.33218C10.1827 2.33218 10.0777 2.30418 9.98259 2.24584C9.70784 2.07726 9.62209 1.71793 9.79125 1.44318ZM3.16575 2.05334C3.27542 2.23301 3.46792 2.33218 3.66392 2.33218C3.76775 2.33218 3.87275 2.30418 3.96784 2.24643C4.24259 2.07784 4.32892 1.71909 4.16034 1.44434L3.44109 0.27126C3.2725 -0.00348977 2.91317 -0.0892398 2.639 0.0787602C2.36425 0.247344 2.27792 0.606094 2.4465 0.880844L3.16575 2.05334ZM1.89059 3.34134L0.841754 2.83909C0.552421 2.69851 0.201838 2.82218 0.0641712 3.11326C-0.0752455 3.40376 0.0478378 3.75201 0.338338 3.89084L1.38717 4.39309C1.46825 4.43218 1.554 4.45084 1.63859 4.45084C1.85617 4.45084 2.065 4.32893 2.16475 4.11951C2.30417 3.82901 2.18109 3.48018 1.89059 3.34134ZM6.92067 2.33393C3.70417 2.38701 1.155 5.87301 2.9015 9.23068C3.16692 9.74051 3.56067 10.1675 3.98359 10.5566C4.144 10.7042 4.26825 10.8868 4.37442 11.0828H6.41667V8.05876C5.73942 7.81726 5.25 7.17559 5.25 6.41609C5.25 6.09351 5.51075 5.83276 5.83334 5.83276C6.15592 5.83276 6.41667 6.09351 6.41667 6.41609C6.41667 6.73868 6.678 6.99943 7 6.99943C7.322 6.99943 7.58334 6.73809 7.58334 6.41609C7.58334 6.09409 7.84409 5.83276 8.16667 5.83276C8.48925 5.83276 8.75 6.09351 8.75 6.41609C8.75 7.17559 8.26059 7.81726 7.58334 8.05876V11.0828H9.60634C9.73934 10.8547 9.91084 10.6394 10.1354 10.4522C10.5198 10.1313 10.8815 9.77376 11.1038 9.32518C12.117 7.27593 11.7151 5.09076 10.2719 3.67209C9.373 2.78776 8.18242 2.31468 6.92067 2.33393ZM4.662 12.4122C4.61534 13.2673 5.25584 14 6.11217 14H7.87442C8.68 14 9.33275 13.3473 9.33275 12.5417V12.25H4.65559C4.65559 12.3048 4.6655 12.3562 4.662 12.4122ZM13.9493 3.09168C13.8163 2.79826 13.4715 2.66584 13.1781 2.80001L12.0511 3.30868C11.7571 3.44109 11.6264 3.78643 11.7594 4.07984C11.8568 4.29568 12.0686 4.42343 12.2914 4.42343C12.3713 4.42343 12.453 4.40709 12.5306 4.37151L13.6576 3.86284C13.9516 3.73043 14.0823 3.38509 13.9493 3.09168Z" fill="#3C76F1"></path>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_9464_2249">
+                            <rect width="14" height="14" fill="white"></rect>
+                        </clipPath>
+                    </defs>
+                </svg>
+                <p class="fz-12">{{ translate('In this page you can add, edit and status On/Off your business related pages.') }}</p>
+            </div>
+            <div class="card mb-20">
+                <div class="card-body p-20">
+                    <div class="data-table-top mb-20 d-flex align-items-center flex-wrap gap-xl-3 gap-2 justify-content-between">
+                        <div class="d-flex align-items-center flex-wrap gap-2">
+                            <h4 class="fw-bold text-dark">{{ translate('Page List') }}</h4>
+                            <span>{{ $pages->total() }}</span>
+                        </div>
+                        <div class="d-flex gap-md-3 gap-2 flex-wrap">
+                            <form action="#" class="search-form search-form_style-two d-flex align-items-center gap-0 border rounded" method="GET">
+                                @csrf
+                                <div class="input-group search-form__input_group bg-transparent">
+                                    <input type="search" class="theme-input-style search-form__input border-0  block-size-36" name="search"
+                                           placeholder="{{translate('search_by_page_name')}}"
+                                           value="{{ request()?->search ?? null }}">
+                                </div>
+                                <button type="submit" class="bg-light border-0 px-2 block-size-36 rounded-end d-flex align-items-center justify-content-center">
+                                    <span class="material-symbols-outlined fz-20 opacity-75">
+                                        search
+                                    </span>
+                                </button>
+                            </form>
+
+                            @can('page_add')
+                                @if($customPageCount < 10)
+                                    <a class="rounded btn btn--primary transition text-nowrap fz-12 fw-semibold d-flex align-items-center gap-0 px-3"
+                                       href="{{ route('admin.business-page-setup.index') }}">
+                                        <span class="material-symbols-outlined">add_circle</span> {{ translate('Add New Page') }}
+                                    </a>
+                                @else
+                                    <button class="rounded btn btn-secondary fz-12 fw-semibold px-3" disabled>
+                                        <span class="material-symbols-outlined">block</span> {{ translate('Max 10 Custom Pages Reached') }}
+                                    </button>
+                                @endif
+                            @endcan
+
+                        </div>
+                    </div>
+                    <div class="table-responsive table-custom-responsive">
+                        <table id="example" class="table align-middle">
+                            <thead class="text-nowrap">
+                            <tr>
+                                <th class="text-dark fw-medium bg-light">{{translate('Sl')}}</th>
+                                <th class="text-dark fw-medium bg-light">{{translate('Page Name')}}</th>
+                                @can('page_manage_status')
+                                    <th class="text-dark fw-medium bg-light text-center">{{translate('Availability')}}</th>
+                                @endcan
+                                <th class="text-dark fw-medium bg-light text-end">{{translate('action')}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($pages as $key => $page)
+                                <tr>
+                                    <td>{{ $pages->firstItem()+$key }}</td>
+                                    <td class="text-capitalize">{{  $page->getRawOriginal('title') }}</td>
+                                    @can('page_manage_status')
+
+                                        <td class="text-end">
+                                            @if(!in_array($page->page_key, ['about-us', 'terms-and-conditions', 'privacy-policy']))
+                                                <label class="switcher mx-auto">
+                                                    <input class="switcher_input status-update"
+                                                           type="checkbox"
+                                                           data-id="{{ $page->id }}"
+                                                           data-status="{{ $page->is_active }}"
+                                                        {{ $page->is_active == 1 ? 'checked' : '' }}>
+                                                    <span class="switcher_control"></span>
+                                                </label>
+                                            @else
+                                                <label class="switcher mx-auto" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ translate('status change option is disable for this page') }}">
+                                                    <input class="switcher_input"
+                                                           type="checkbox"
+                                                           data-id="{{ $page->id }}"
+                                                           data-status="{{ $page->is_active }}"
+                                                           {{ $page->is_active == 1 ? 'checked' : '' }} disabled>
+                                                    <span class="switcher_control disabled"></span>
+                                                </label>
+                                            @endif
+                                        </td>
+                                    @endcan
+                                    <td>
+                                        <div class="d-flex gap-2 justify-content-end">
+                                                @can('page_view')
+                                                    <a href="{{ route('admin.business-page-setup.view', $page->id) }}" class="action-btn btn--light-primary">
+                                                        <span class="material-icons">visibility</span>
+                                                    </a>
+                                                @endcan
+                                                @can('page_update')
+                                                    <a href="{{ route('admin.business-page-setup.edit', $page->id) }}" class="action-btn btn--light-primary">
+                                                        <span class="material-icons">edit</span>
+                                                    </a>
+                                                @endcan
+
+                                                @can('page_delete')
+                                                    @if($page->is_default == 0)
+                                                        <button type="button"
+                                                                class="delete-content action-btn btn--danger"
+                                                                data-id="{{ $page->id }}"
+                                                                data-url="{{route('admin.business-page-setup.delete',[$page->id])}}"
+                                                                data-title="{{ translate('want_to_delete_this_business_page')}}?"
+                                                                data-description="{{ translate('You will not be able to revert this!') }}"
+                                                                data-image="{{ asset('public/assets/admin-module/img/modal/delete-icon.svg') }}">
+                                                            <i class="material-symbols-outlined">delete</i>
+                                                        </button>
+                                                    @endif
+                                                @endcan
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-center" colspan="4">{{translate('Data_not_available')}}</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--image showing-->
+    <div class="modal fade custom-confirmation-modal" id="imageShowingMOdal" tabindex="-1" aria-labelledby="imageShowingMOdalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body py-3 px-sm-4 px-3">
+                    <button type="button" class="btn-close bg-light rounded-full" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="image-display-container">
+                        <!-- Push Inside any images -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('script')
+    <script src="{{asset('public/assets/admin-module/plugins/tinymce/tinymce.min.js')}}"></script>
+
+    <script>
+        "use strict";
+
+        $('.switcher_input').on('click', function () {
+            $(this).submit()
+        });
+
+
+
+        $(document).ready(function () {
+            $(".js-upload-input").on("change", function (event) {
+                let file = event.target.files[0];
+                const target = $(this).data('target');
+                let blobURL = URL.createObjectURL(file);
+                $(this).closest('.upload-file').find('.upload-file__img').html('<img class="h-180px w-100" src="' + blobURL + '" alt="">');
+            })
+        });
+
+        $(document).ready(function () {
+
+            let selectedItem;
+            let selectedRoute;
+            let originalChecked;
+
+            $(".status-update").on("change", function (e) {
+                e.preventDefault();
+
+                selectedItem = $(this);
+                originalChecked = selectedItem.prop('checked');
+
+                selectedItem.prop('checked', !originalChecked);
+
+                let itemId = selectedItem.data('id');
+                let itemStatus = originalChecked ? '1' : '0'; // What the user wants to change to
+
+                selectedRoute = '{{ route('admin.business-page-setup.status', ['id' => ':itemId']) }}'.replace(':itemId', itemId);
+
+                let confirmationTitleText = itemStatus == '1'
+                    ? '{{ translate('Are you sure to Turn On the Page Status') }}?'
+                    : '{{ translate('Are you sure to Turn Off the Page Status') }}?';
+
+                let confirmationDescriptionText = itemStatus == '1'
+                    ? '{{ translate('Once you turn on the page status, it will be visible to users.') }}'
+                    : '{{ translate('Once you turn off the page status, it will be hidden from users.') }}';
+
+                let imgSrc = itemStatus == '1'
+                    ? "{{ asset('public/assets/admin-module/img/icons/status-on.png') }}"
+                    : "{{ asset('public/assets/admin-module/img/icons/status-off.png') }}";
+
+                $('.confirmation-title-text').text(confirmationTitleText);
+                $('.confirmation-description-text').text(confirmationDescriptionText);
+                $('#confirmChangeModal img').attr('src', imgSrc);
+
+                showModal();
+            })
+
+
+            $('#confirmChange').on('click', function () {
+                updateStatus(selectedRoute);
+            });
+
+            $('.cancel-change').on('click', function () {
+                hideModal();
+            });
+
+            function showModal() {
+                $('#confirmChangeModal').modal('show');
+            }
+            function hideModal() {
+                $('#confirmChangeModal').modal('hide');
+            }
+
+            function updateStatus(url) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function (response) {
+                        toastr.success(response.message ?? '{{ translate('Status updated successfully') }}');
+                        selectedItem.prop('checked', originalChecked); // Now apply the change
+                        hideModal();
+                    },
+                    error: function (xhr) {
+                        toastr.error(xhr.responseJSON?.message ?? '{{ translate('Something went wrong') }}');
+                        selectedItem.prop('checked', !originalChecked); // Keep old state
+                        hideModal();
+                    }
+                });
+            }
+        });
+
+    </script>
+@endpush

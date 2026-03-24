@@ -1,0 +1,494 @@
+[
+    {
+        "routeName": "Index",
+        "URI": "admin/addon",
+        "keywords": "Addon Index",
+        "isModified": false
+    },
+    {
+        "routeName": "Component",
+        "URI": "admin/component",
+        "keywords": "Component",
+        "isModified": false
+    },
+    {
+        "routeName": "Dashboard",
+        "URI": "admin/dashboard",
+        "keywords": "Dashboard",
+        "isModified": false
+    },
+    {
+        "routeName": "Profile Update",
+        "URI": "admin/profile-update",
+        "keywords": "Profile Update",
+        "isModified": false
+    },
+    {
+        "routeName": "SubscribeToTopic",
+        "URI": "admin/subscribeToTopic",
+        "keywords": "SubscribeToTopic",
+        "isModified": false
+    },
+    {
+        "routeName": "Search",
+        "URI": "admin/recent-search",
+        "keywords": "Recent Search",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/role/list",
+        "keywords": "Role Index",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/role/create",
+        "keywords": "Role Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/employee/list",
+        "keywords": "Employee Index",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/employee/create",
+        "keywords": "Employee Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Transaction",
+        "URI": "admin/report/transaction",
+        "keywords": "Report Transaction",
+        "isModified": false
+    },
+    {
+        "routeName": "Booking",
+        "URI": "admin/report/booking",
+        "keywords": "Report Booking",
+        "isModified": false
+    },
+    {
+        "routeName": "Provider",
+        "URI": "admin/report/provider",
+        "keywords": "Report Provider",
+        "isModified": false
+    },
+    {
+        "routeName": "Overview",
+        "URI": "admin/report/business/overview",
+        "keywords": "Report Business Overview",
+        "isModified": false
+    },
+    {
+        "routeName": "Earning",
+        "URI": "admin/report/business/earning",
+        "keywords": "Report Business Earning",
+        "isModified": false
+    },
+    {
+        "routeName": "Subscription-earning",
+        "URI": "admin/report/business/subscription-earning",
+        "keywords": "Report Business Subscription-earning",
+        "isModified": false
+    },
+    {
+        "routeName": "Commission-earning",
+        "URI": "admin/report/business/commission-earning",
+        "keywords": "Report Business Commission-earning",
+        "isModified": false
+    },
+    {
+        "routeName": "Expense",
+        "URI": "admin/report/business/expense",
+        "keywords": "Report Business Expense",
+        "isModified": false
+    },
+    {
+        "routeName": "Keyword",
+        "URI": "admin/analytics/search/keyword",
+        "keywords": "Analytics Search Keyword",
+        "isModified": false
+    },
+    {
+        "routeName": "Customer",
+        "URI": "admin/analytics/search/customer",
+        "keywords": "Analytics Search Customer",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/booking/post",
+        "keywords": "Booking Post List",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/booking/list",
+        "keywords": "Booking List",
+        "isModified": false
+    },
+    {
+        "routeName": "Verification",
+        "URI": "admin/booking/list/verification",
+        "keywords": "Booking List Verification",
+        "isModified": false
+    },
+    {
+        "routeName": "Payment",
+        "URI": "admin/booking/list/offline-payment",
+        "keywords": "Booking Offline Payment",
+        "isModified": false
+    },
+    {
+        "routeName": "Maintenance-mode-status-update",
+        "URI": "admin/business-settings/maintenance-mode-status-update",
+        "keywords": "Business-settings Maintenance-mode-status-update",
+        "isModified": false
+    },
+    {
+        "routeName": "Get-business-information",
+        "URI": "admin/business-settings/get-business-information",
+        "keywords": "Business-settings Get-business-information",
+        "isModified": false
+    },
+    {
+        "routeName": "Get-database-backup",
+        "URI": "admin/business-settings/get-database-backup",
+        "keywords": "Business-settings Get-database-backup",
+        "isModified": false
+    },
+    {
+        "routeName": "Get-landing-information",
+        "URI": "admin/business-settings/get-landing-information",
+        "keywords": "Business-settings Get-landing-information",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/business-settings/cron-job",
+        "keywords": "Business-settings Cron-job List",
+        "isModified": false
+    },
+    {
+        "routeName": "Setting",
+        "URI": "admin/business-settings/seo-setting",
+        "keywords": "Business-settings Seo Setting",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/business-page-setup/list",
+        "keywords": "Business-page-setup List",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/business-page-setup/index",
+        "keywords": "Business-page-setup Index",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/social-media/index",
+        "keywords": "Social-media Index",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/subscription/package/list",
+        "keywords": "Subscription Package List",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/subscription/package/create",
+        "keywords": "Subscription Package Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Transactions",
+        "URI": "admin/subscription/package/transactions",
+        "keywords": "Subscription Package Transactions",
+        "isModified": false
+    },
+    {
+        "routeName": "Settings",
+        "URI": "admin/subscription/settings",
+        "keywords": "Subscription Settings",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/subscription/subscriber/list",
+        "keywords": "Subscription Subscriber List",
+        "isModified": false
+    },
+    {
+        "routeName": "Transactions",
+        "URI": "admin/subscription/subscriber/transactions",
+        "keywords": "Subscription Subscriber Transactions",
+        "isModified": false
+    },
+    {
+        "routeName": "Get-notification-setting",
+        "URI": "admin/configuration/get-notification-setting",
+        "keywords": "Configuration Get-notification-setting",
+        "isModified": false
+    },
+    {
+        "routeName": "Get-email-config",
+        "URI": "admin/configuration/get-email-config",
+        "keywords": "Configuration Get-email-config",
+        "isModified": false
+    },
+    {
+        "routeName": "Get-app-settings",
+        "URI": "admin/configuration/get-app-settings",
+        "keywords": "Configuration Get-app-settings",
+        "isModified": false
+    },
+    {
+        "routeName": "Language Setup",
+        "URI": "admin/configuration/language-setup",
+        "keywords": "Configuration Language Setup",
+        "isModified": false
+    },
+    {
+        "routeName": "Settings",
+        "URI": "admin/customer/settings",
+        "keywords": "Customer Settings",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/category/create",
+        "keywords": "Category Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Table",
+        "URI": "admin/category/table",
+        "keywords": "Category Table",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/sub-category/create",
+        "keywords": "Sub-category Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/chat/index",
+        "keywords": "Chat Index",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/customer/list",
+        "keywords": "Customer Index",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/customer/create",
+        "keywords": "Customer Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Add-fund",
+        "URI": "admin/customer/wallet/add-fund",
+        "keywords": "Customer Wallet Add-fund",
+        "isModified": false
+    },
+    {
+        "routeName": "Report",
+        "URI": "admin/customer/wallet/report",
+        "keywords": "Customer Wallet Report",
+        "isModified": false
+    },
+    {
+        "routeName": "Report",
+        "URI": "admin/customer/loyalty-point/report",
+        "keywords": "Customer Loyalty-point Report",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/customer/newsletter/list",
+        "keywords": "Customer Newsletter Index",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/configuration/offline-payment/list",
+        "keywords": "Configuration Offline-payment List",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/configuration/offline-payment/create",
+        "keywords": "Configuration Offline-payment Create",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/bonus/list",
+        "keywords": "Bonus List",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/bonus/create",
+        "keywords": "Bonus Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/discount/create",
+        "keywords": "Discount Create",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/discount/list",
+        "keywords": "Discount List",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/coupon/create",
+        "keywords": "Coupon Create",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/coupon/list",
+        "keywords": "Coupon List",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/campaign/create",
+        "keywords": "Campaign Create",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/campaign/list",
+        "keywords": "Campaign List",
+        "isModified": false
+    },
+    {
+        "routeName": "Ads-create",
+        "URI": "admin/advertisements/ads-create",
+        "keywords": "Advertisements Ads-create",
+        "isModified": false
+    },
+    {
+        "routeName": "Ads-list",
+        "URI": "admin/advertisements/ads-list",
+        "keywords": "Advertisements Ads-list",
+        "isModified": false
+    },
+    {
+        "routeName": "New-ads-request",
+        "URI": "admin/advertisements/new-ads-request",
+        "keywords": "Advertisements New-ads-request",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/banner/create",
+        "keywords": "Banner Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/push-notification/create",
+        "keywords": "Push-notification Create",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/provider/list",
+        "keywords": "Provider List",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/provider/create",
+        "keywords": "Provider Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Onboarding Request",
+        "URI": "admin/provider/onboarding-request",
+        "keywords": "Provider Onboarding Request",
+        "isModified": false
+    },
+    {
+        "routeName": "Sms-get",
+        "URI": "admin/configuration/sms-get",
+        "keywords": "Configuration Sms-get",
+        "isModified": false
+    },
+    {
+        "routeName": "Index",
+        "URI": "admin/service/list",
+        "keywords": "Service Index",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/service/create",
+        "keywords": "Service Create",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/service/request/list",
+        "keywords": "Service Request List",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/transaction/list",
+        "keywords": "Transaction List",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/withdraw/request/list",
+        "keywords": "Withdraw Request List",
+        "isModified": false
+    },
+    {
+        "routeName": "List",
+        "URI": "admin/withdraw/method/list",
+        "keywords": "Withdraw Method List",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/withdraw/method/create",
+        "keywords": "Withdraw Method Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Create",
+        "URI": "admin/zone/create",
+        "keywords": "Zone Create",
+        "isModified": false
+    },
+    {
+        "routeName": "Table",
+        "URI": "admin/zone/table",
+        "keywords": "Zone Table",
+        "isModified": false
+    }
+]

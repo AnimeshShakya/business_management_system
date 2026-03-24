@@ -1,0 +1,275 @@
+// Define the min-width values
+$min-width: (120, 200);
+@each $width in $min-width {
+    .min-w-#{$width} {
+        min-inline-size: #{$width}px;
+    }
+}
+
+/*view Guideline*/
+.view-guideline-btn-text{
+  writing-mode: sideways-lr;
+  user-select: none;
+  margin-top: 50px;
+}
+
+/* Setup Guide */
+.setup-guide {
+  position: fixed;
+  z-index: 1049;
+  bottom: 30px;
+  width: 220px;
+  inset-inline-start: 20px;
+}
+
+.translate-middle {
+  transform: translate(-50%, -50%) !important;
+}
+
+[dir=rtl] .setup-guide .translate-middle {
+  transform: translate(50%, -50%) !important;
+}
+
+[dir=rtl] .modal-dialog-end {
+  margin-left: auto !important;
+  margin-right: 20px !important;
+}
+
+@media (max-width: 991px) {
+  .setup-guide {
+    width: 52px;
+  }
+}
+.start-0 {
+  inset-inline-start: 0 !important;
+}
+
+.start-100 {
+  inset-inline-start: 100% !important;
+}
+
+[dir=rtl] .start-100.rtl_start-0 {
+  left: 0 !important;
+}
+
+[dir=rtl] .start-100.rtl_end-100 {
+  left: unset !important;
+  right: 100% !important;
+}
+
+.progress-pie-chart {
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--bs-border-color);
+  position: relative;
+}
+.progress-pie-chart.gt-50 {
+  background-color: #81ce97;
+}
+
+.ppc-progress {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 25px);
+  top: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  clip: rect(0, 50px, 50px, 25px);
+}
+.ppc-progress .ppc-progress-fill {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 25px);
+  top: calc(50% - 25px);
+  width: 50px;
+  height: 50px;
+  clip: rect(0, 25px, 50px, 0);
+  background: #81ce97;
+  transform: rotate(60deg);
+}
+.gt-50 .ppc-progress {
+  clip: rect(0, 25px, 50px, 0);
+}
+.gt-50 .ppc-progress .ppc-progress-fill {
+  clip: rect(0, 50px, 50px, 25px);
+  background: var(--bs-border-color);
+}
+
+.ppc-percents {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - 21.7391304348px);
+  top: calc(50% - 21.7391304348px);
+  width: 43.4782608696px;
+  height: 43.4782608696px;
+  background: #fff;
+  text-align: center;
+  display: table;
+}
+
+.pcc-percents-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.end-20 {
+  inset-inline-end: 1.25rem;
+}
+
+.end-40 {
+  inset-inline-end: 2.5rem;
+}
+
+.bottom-20 {
+  bottom: 1.25rem;
+}
+
+@media screen and (min-width: 576px) {
+  .p-sm-20 {
+    padding: 1.25rem !important;
+  }
+}
+.p-12 {
+  padding: 0.75rem !important;
+}
+
+.modal-dialog-end {
+  margin-left: 20px !important;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100% - 3.5rem);
+  padding-bottom: 80px;
+}
+
+@media screen and (max-width: 575px) {
+  .modal-dialog-end {
+    margin-left: 8px !important;
+  }
+}
+.top-01 {
+  top: 1px !important;
+}
+
+.top-1 {
+  top: 0.25rem !important;
+}
+
+.view-guideline-btn {
+  border-radius: 10px 0 0 10px;
+  z-index: 9;
+  top: 200px;
+  inset-inline-end: -100px;
+  transition: all 0.5s ease;
+  box-shadow: 0px 10px 20px -3px rgba(var(--shadow-color-rgb), 0.20);
+  &.show{
+    inset-inline-end: 0;
+  }
+}
+[dir="rtl"] .view-guideline-btn {
+  border-radius: 0 10px 10px 0;
+}
+
+.guideline-close{
+  position: absolute;
+  inset-inline-end: -41px;
+  opacity: 1;
+  top: -5px;
+  cursor: pointer;
+  @media screen and (max-width: 767px) {
+    inset-inline-end: -0px;
+    top: -41px;
+  }
+}
+.modal-content_cont{
+  min-height: 460px;
+  background-color: #fff !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.z-9 {
+  z-index: 9;
+}
+
+.translate-middle-y {
+  transform: translateY(-50%) !important;
+}
+
+.top-50 {
+  top: 50% !important;
+}
+
+.end-0 {
+  right: unset !important;
+  inset-inline-end: 0 !important;
+}
+
+.btn-collapse .btn-collapse-icon {
+  fill:  #FFF;
+  stroke-width: 1px;
+  stroke: #E7E6E8;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  background-color: #fff;
+}
+
+.btn-collapse.collapsed .btn-collapse-icon {
+  rotate: 180deg;
+}
+
+.modal-instruction-content {
+  width: 280px;
+  inset-inline-start: calc(100% + 16px);
+}
+
+[dir=rtl] .modal-instruction-content > img {
+  transform: rotateY(180deg);
+}
+
+.fs-28 {
+  font-size: 28px !important;
+}
+
+.ms-5 {
+  margin-inline-start: 2rem !important;
+}
+
+[dir=rtl] .setup-guide__button .fi-sr-angle-right {
+  transform: rotate(-180deg);
+  margin-bottom: 4px;
+}
+
+.h-100px{
+  height: 100px;
+}
+.w-50px{
+  width: 50px;
+}
+.h-50px{
+  height: 50px;
+}
+.w-38{
+  width: 2.375rem;
+}
+.h-38{
+  height: 2.375rem;
+}
+.w-30{
+    width: 30px;
+}
+/*End Guideline*/
+
+
+
+
+
+
+

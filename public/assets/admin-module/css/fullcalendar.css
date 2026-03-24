@@ -1,0 +1,350 @@
+/*Calendar Custom CSS*/
+
+.custom-booking-calendar{
+    background-color: var(--bs-white);
+    border-radius: 8px;
+}
+
+.custom-booking-calendar .fc-header-toolbar{
+    padding: 21px;
+    margin-bottom: 0 !important;
+    @media screen and (max-width: 1399px) {
+        padding: 18px;
+    }
+}
+
+.custom-booking-calendar .fc-myFilter-button{
+    color: var(--text-dark-icon);
+    font-size: 24px;
+    padding: 0 !important;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    margin-left: 10px !important;
+}
+
+.custom-booking-calendar .fc-toolbar-chunk .fc-today-button{
+    background-color: var(--bs-primary) !important;
+    color: var(--absolute-white) !important;
+    border: unset;
+    border-radius: 8px !important;
+    font-weight: 500;
+    padding: 5px 15px;
+    font-size: 14px;
+    transition: all 0.4s;
+}
+
+.custom-booking-calendar .fc-toolbar-chunk .fc-today-button:hover{
+    background-color: var(--bs-primary-dark) !important;
+    color: var(--absolute-white) !important;
+    cursor: pointer;
+}
+
+.custom-booking-calendar .fc .fc-daygrid-day.fc-day-today{
+    background-color: transparent !important;
+}
+
+.custom-booking-calendar .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number{
+    background-color: var(--bs-primary) !important;
+    width: 30px;
+    height: 30px;
+    color: var(--absolute-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.fc-button-group {
+    border: 1px solid var(--border-color);
+    background-color: var(--bs-white);
+    padding: 4px;
+    border-radius: 8px;
+}
+
+.fc-button-group button{
+    outline: none !important;
+    box-shadow: none !important;
+    border: unset;
+    transition: all 0.4s;
+}
+
+@media screen and (max-width: 575px) {
+    .fc .fc-toolbar {
+        flex-wrap: wrap;
+        gap: 7px;
+        justify-content: center;
+    }
+}
+
+.fc-toolbar-chunk .fc-toolbar-title{
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 120px;
+}
+
+.fc-toolbar-chunk .fc-prev-button .fc-icon,
+.fc-toolbar-chunk .fc-next-button .fc-icon{
+    font-size: 20px;
+}
+
+.fc-toolbar-chunk div{
+    gap: 4px;
+    display: flex;
+    align-items: center;
+}
+.fc-toolbar-chunk .fc-button-group button{
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    padding: 1px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fc-toolbar-chunk button{
+    border: unset;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: all 0.4s;
+    color: var(--text-light-color);
+    background-color: transparent !important;
+    width: initial;
+}
+
+.fc .fc-button-primary {
+    background-color: var(--bs-white);
+    border-color: var(--bs-white);
+    color: var(--text-dark-icon);
+    border: unset;
+    border-radius: 4px !important;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+    background-color: var(--text-dark-icon2) !important;
+    border-color: unset;
+    color: var(--bs-dark);
+}
+
+.fc .fc-button-primary:hover {
+    background-color: var(--text-dark-icon2);
+    border-color: var(--border-color);
+    color: var(--bs-dark);
+}
+
+/* Common material icon style */
+.fc-toolbar button::after {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* Custom filter button */
+.fc-myFilter-button::after {
+    content: "filter_list";
+    font-size: 24px !important;
+}
+.fc-myFilter-button{
+    position: relative;
+}
+.fc-myFilter-button .filter-count-badge{
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--bs-white);
+    border-radius: 50%;
+    background-color: red;
+    position: absolute;
+    right: 0;
+    top: 11px;
+    z-index: 99;
+}
+
+/* Calendar toolbar icons */
+.fc-dayGridMonth-button::after {
+    content: "calendar_month";
+}
+
+.fc-timeGridWeek-button::after {
+    content: "view_week";
+    border: 1px solid var(--text-dark-icon);
+    border-radius: 2px;
+}
+
+.fc-timeGridDay-button::after {
+    content: "calendar_today";
+    /* border: 1px solid #e0e0e0; */
+    border-radius: 4px;
+}
+
+.fc-listMonth-button::after {
+    content: "list";
+}
+
+.fc-view-harness{
+    height: 600px !important;
+}
+
+@media screen and (max-width: 991px) {
+    .fc-view-harness{
+        overflow-x: auto !important;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .fc-view-harness .fc-view{
+        width: 920px !important;
+    }
+}
+
+.fc-scrollgrid-liquid .fc-col-header {
+    border-top: 1px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.fc-scrollgrid-liquid .fc-col-header thead tr th{
+    border: 1px solid var(--border-color);
+}
+
+.fc-scrollgrid-liquid .fc-col-header thead tr th .fc-scrollgrid-sync-inner{
+    padding: 9px 10px;
+}
+
+.fc-scrollgrid-liquid .fc-col-header thead tr th .fc-scrollgrid-sync-inner a{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.fc-scrollgrid-liquid .fc-scrollgrid-sync-table tbody tr th,
+.fc-scrollgrid-liquid .fc-scrollgrid-sync-table tbody tr td{
+    border: 1px solid var(--border-color) !important;
+}
+
+.fc-scrollgrid-liquid .fc-daygrid-day-frame{
+    padding: 10px;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border: unset !important;
+}
+
+.fc-theme-standard .fc-scrollgrid{
+    border: unset;
+}
+
+.fc-timeGridWeek-view .fc-day-today{
+    position: relative;
+}
+
+.fc-timeGridWeek-view .fc-day-today::before{
+    content: "";
+    position: absolute;
+    top: 4px;
+    inset-inline-end: 4px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--bs-primary);
+}
+
+.fc-timeGridWeek-view table tr td table tr td{
+    padding: 5px;
+    border: 1px solid var(--border-color) !important;
+}
+
+.fc-timeGridDay-view table tr td table tr td{
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 5px;
+}
+
+.fc-timeGridDay-view table tr td table tr td:first-child{
+    padding-right: 18px;
+    border-right: 1px solid var(--border-color) !important;
+}
+
+/* */
+.booking-badge {
+    background-color: rgba(var(--bs-warning-rgb), 0.4);
+    color: var(--bs-dark);
+    padding: 6.5px 8.2px;
+    font-size: 12px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 0px;
+    line-height: 1;
+    z-index: 99;
+}
+
+.booking-badge:hover {
+    cursor: pointer;
+}
+
+/* */
+.fc-daygrid-event {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.fc-daygrid-day-events {
+    margin-top: 4px !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px 4px;
+    justify-content: flex-end;
+}
+
+.fc-daygrid-day-frame {
+    padding: 6px;
+}
+
+/* timegrid */
+.fc-timegrid-col-events{
+    margin-top: 4px !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px 4px;
+    justify-content: flex-end;
+}
+
+.fc-timegrid-event-harness > .fc-timegrid-event{
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.fc .fc-timegrid-col.fc-day-today {
+    background-color: var(--bs-white);
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
+    box-shadow: none !important;
+}
+.fc-scrollgrid-sync-table tbody tr td:nth-child(6){
+    background-color: var(--text-dark-icon2) !important;
+}
+.fc-scrollgrid-sync-table tbody tr td:nth-child(7){
+    background-color: var(--text-dark-icon2) !important;
+}
+
+.fc-timeGridWeek-view .calender-view-booking-btn{
+    position: relative;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fc-timeGridDay-view .calender-view-booking-btn{
+    position: relative;
+    bottom: 6px;
+}
