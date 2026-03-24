@@ -869,13 +869,15 @@ $logo = getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'bus
 
 
             @canany(['addon_view', 'addon_update'])
-                <li>
-                    <a href="{{route('admin.add-on-activation.index')}}"
-                       class="{{request()->is('admin/add-on-activation/index') ?'active-menu':''}}">
-                        <span class="material-icons" title="{{translate('Add-on Activation')}}">add_card</span>
-                        <span class="link-title">{{translate('Add-on Activation')}}</span>
-                    </a>
-                </li>
+                @if(Route::has('admin.add-on-activation.index'))
+                    <li>
+                        <a href="{{route('admin.add-on-activation.index')}}"
+                           class="{{request()->is('admin/add-on-activation/index') ?'active-menu':''}}">
+                            <span class="material-icons" title="{{translate('Add-on Activation')}}">add_card</span>
+                            <span class="link-title">{{translate('Add-on Activation')}}</span>
+                        </a>
+                    </li>
+                @endif
             @endcanany
 
         </ul>
