@@ -84,6 +84,18 @@ class PaymentConfigController extends Controller
                 'merchant_id' => 'required_if:status,1',
                 'merchant_website_link' => 'required_if:status,1'
             ];
+        } elseif ($request['gateway'] == 'esewa') {
+            $additionalData = [
+                'status' => 'required|in:1,0',
+                'product_code' => 'required_if:status,1|string',
+                'secret_key' => 'required_if:status,1|string',
+            ];
+        } elseif ($request['gateway'] == 'khalti') {
+            $additionalData = [
+                'status' => 'required|in:1,0',
+                'secret_key' => 'required_if:status,1|string',
+                'website_url' => 'nullable|url',
+            ];
         } elseif ($request['gateway'] == 'cash_after_service') {
             $additionalData = [
                 'status' => 'required|in:1,0'

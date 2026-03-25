@@ -1222,7 +1222,11 @@ if (!function_exists('checkCurrency')) {
                    $credentials = $env . '_values';
 
                } else {
-                   $methods = DB::table('addon_settings')->where('is_active', 1)->whereIn('settings_type', ['payment_config'])->whereIn('key_name', ['ssl_commerz', 'paypal', 'stripe', 'razor_pay', 'senang_pay', 'paytabs', 'paystack', 'paymob_accept', 'paytm', 'flutterwave', 'liqpay', 'bkash', 'mercadopago'])->get();
+                   $methods = DB::table('addon_settings')
+                       ->where('is_active', 1)
+                       ->whereIn('settings_type', ['payment_config'])
+                       ->whereIn('key_name', array_column(DIGITAL_PAYMENT_METHODS, 'key'))
+                       ->get();
                    $env = env('APP_ENV') == 'live' ? 'live' : 'test';
                    $credentials = $env . '_values';
 
@@ -1288,6 +1292,9 @@ if (!function_exists('getPaymentGatewaySupportedCurrencies')) {
                "INR" => "Indian Rupee"
            ],
            "esewa" => [
+               "NPR" => "Nepalese Rupee"
+           ],
+           "khalti" => [
                "NPR" => "Nepalese Rupee"
            ],
            "fatoorah" => [

@@ -2,6 +2,8 @@
 
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
+use Modules\PaymentModule\Http\Controllers\EsewaPaymentController;
+use Modules\PaymentModule\Http\Controllers\KhaltiPaymentController;
 use Modules\PaymentModule\Http\Controllers\PaytmController;
 use Modules\PaymentModule\Http\Controllers\PaymentController;
 use Modules\PaymentModule\Http\Controllers\PaystackController;
@@ -29,6 +31,20 @@ Route::match(['get', 'post'],'payment/subscription', [SubscriptionPaymentControl
 if (!$isPublished) {
     Route::group(['prefix' => 'payment'], function () {
         Route::match(['get', 'post'],'/', [PaymentController::class, 'index']);
+
+        //ESEWA
+        Route::group(['prefix' => 'esewa', 'as' => 'esewa.'], function () {
+            Route::get('pay', [EsewaPaymentController::class, 'index'])->name('pay');
+            Route::match(['get', 'post'], 'success', [EsewaPaymentController::class, 'success'])->name('success');
+            Route::match(['get', 'post'], 'failure', [EsewaPaymentController::class, 'failure'])->name('failure');
+        });
+
+        //KHALTI
+        Route::group(['prefix' => 'khalti', 'as' => 'khalti.'], function () {
+            Route::get('pay', [KhaltiPaymentController::class, 'index'])->name('pay');
+            Route::match(['get', 'post'], 'success', [KhaltiPaymentController::class, 'success'])->name('success');
+            Route::match(['get', 'post'], 'failure', [KhaltiPaymentController::class, 'failure'])->name('failure');
+        });
 
         //SSLCOMMERZ
         Route::group(['prefix' => 'sslcommerz', 'as' => 'sslcommerz.'], function () {

@@ -843,6 +843,90 @@ class ConfigurationController extends Controller
                     'type' => 'in:digital_payment,offline_payment',
                 ])->validate();
                 $type = $request->input('type', null);
+
+                $esewaSetting = $this->addonSetting
+                    ->where('settings_type', 'payment_config')
+                    ->where('key_name', 'esewa')
+                    ->first();
+
+                $existingLiveValues = $esewaSetting?->live_values ?? [];
+                $existingTestValues = $esewaSetting?->test_values ?? [];
+                $existingAdditionalData = $esewaSetting?->additional_data ? json_decode($esewaSetting->additional_data, true) : [];
+
+                $normalizedLiveValues = [
+                    'gateway' => 'esewa',
+                    'mode' => $esewaSetting?->mode ?? 'test',
+                    'status' => (string)($existingLiveValues['status'] ?? $esewaSetting?->is_active ?? 0),
+                    'product_code' => $existingLiveValues['product_code'] ?? $existingLiveValues['merchantCode'] ?? 'EPAYTEST',
+                    'secret_key' => $existingLiveValues['secret_key'] ?? '8gBm/:&EnhH.1/q',
+                ];
+
+                $normalizedTestValues = [
+                    'gateway' => 'esewa',
+                    'mode' => $esewaSetting?->mode ?? 'test',
+                    'status' => (string)($existingTestValues['status'] ?? $esewaSetting?->is_active ?? 0),
+                    'product_code' => $existingTestValues['product_code'] ?? $existingTestValues['merchantCode'] ?? 'EPAYTEST',
+                    'secret_key' => $existingTestValues['secret_key'] ?? '8gBm/:&EnhH.1/q',
+                ];
+
+                $this->addonSetting->updateOrCreate(
+                    ['key_name' => 'esewa', 'settings_type' => 'payment_config'],
+                    [
+                        'key_name' => 'esewa',
+                        'live_values' => $normalizedLiveValues,
+                        'test_values' => $normalizedTestValues,
+                        'settings_type' => 'payment_config',
+                        'mode' => $esewaSetting?->mode ?? 'test',
+                        'is_active' => (int)($esewaSetting?->is_active ?? 0),
+                        'additional_data' => json_encode([
+                            'gateway_title' => $existingAdditionalData['gateway_title'] ?? 'eSewa',
+                            'gateway_image' => $existingAdditionalData['gateway_image'] ?? '',
+                            'storage' => $existingAdditionalData['storage'] ?? getDisk(),
+                        ]),
+                    ]
+                );
+
+                $khaltiSetting = $this->addonSetting
+                    ->where('settings_type', 'payment_config')
+                    ->where('key_name', 'khalti')
+                    ->first();
+
+                $khaltiLiveValues = $khaltiSetting?->live_values ?? [];
+                $khaltiTestValues = $khaltiSetting?->test_values ?? [];
+                $khaltiAdditionalData = $khaltiSetting?->additional_data ? json_decode($khaltiSetting->additional_data, true) : [];
+
+                $normalizedKhaltiLiveValues = [
+                    'gateway' => 'khalti',
+                    'mode' => $khaltiSetting?->mode ?? 'test',
+                    'status' => (string)($khaltiLiveValues['status'] ?? $khaltiSetting?->is_active ?? 0),
+                    'secret_key' => $khaltiLiveValues['secret_key'] ?? '',
+                    'website_url' => $khaltiLiveValues['website_url'] ?? config('app.url'),
+                ];
+
+                $normalizedKhaltiTestValues = [
+                    'gateway' => 'khalti',
+                    'mode' => $khaltiSetting?->mode ?? 'test',
+                    'status' => (string)($khaltiTestValues['status'] ?? $khaltiSetting?->is_active ?? 0),
+                    'secret_key' => $khaltiTestValues['secret_key'] ?? '',
+                    'website_url' => $khaltiTestValues['website_url'] ?? config('app.url'),
+                ];
+
+                $this->addonSetting->updateOrCreate(
+                    ['key_name' => 'khalti', 'settings_type' => 'payment_config'],
+                    [
+                        'key_name' => 'khalti',
+                        'live_values' => $normalizedKhaltiLiveValues,
+                        'test_values' => $normalizedKhaltiTestValues,
+                        'settings_type' => 'payment_config',
+                        'mode' => $khaltiSetting?->mode ?? 'test',
+                        'is_active' => (int)($khaltiSetting?->is_active ?? 0),
+                        'additional_data' => json_encode([
+                            'gateway_title' => $khaltiAdditionalData['gateway_title'] ?? 'Khalti',
+                            'gateway_image' => $khaltiAdditionalData['gateway_image'] ?? '',
+                            'storage' => $khaltiAdditionalData['storage'] ?? getDisk(),
+                        ]),
+                    ]
+                );
             }
 
 

@@ -65,6 +65,7 @@ trait Payment
             'hubtel' => 'payment/hubtel/pay',
             'maxicash' => 'payment/maxicash/pay',
             'esewa' => 'payment/esewa/pay',
+            'khalti' => 'payment/khalti/pay',
             'swish' => 'payment/swish/pay',
             'momo' => 'payment/momo/pay',
             'payfast' => 'payment/payfast/pay',

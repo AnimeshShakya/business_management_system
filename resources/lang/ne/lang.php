@@ -6246,6 +6246,4 @@ _Message' => 'Customer notification for provider bid offer
   'No Payment Method List' => 'No Payment Method List',
   'Add ZIP' => 'Add ZIP',
   'Copy' => 'Copy',
-  'To get site key and secret key Go to the Credentials page' => 'To get site key and secret key Go to the Credentials page',
-  'Not_Configured' => 'Not Configured',
 );

@@ -92,13 +92,15 @@ const PAYMENT_METHODS = [
 ];
 
 const DIGITAL_PAYMENT_METHODS = [
-    ['key' => 'ssl_commerz', 'value' => 'SSLCOMMERZ'],
-    ['key' => 'stripe', 'value' => 'Stripe'],
-    ['key' => 'paytm', 'value' => 'Paytm'],
-    ['key' => 'razor_pay', 'value' => 'Razor Pay'],
-    ['key' => 'paystack', 'value' => 'Paystack'],
-    ['key' => 'senang_pay', 'value' => 'Senang Pay'],
-    ['key' => 'flutterwave', 'value' => 'Flutter Wave'],
+    // ['key' => 'ssl_commerz', 'value' => 'SSLCOMMERZ'],
+    // ['key' => 'stripe', 'value' => 'Stripe'],
+    // ['key' => 'paytm', 'value' => 'Paytm'],
+    // ['key' => 'razor_pay', 'value' => 'Razor Pay'],
+    // ['key' => 'paystack', 'value' => 'Paystack'],
+    // ['key' => 'senang_pay', 'value' => 'Senang Pay'],
+    // ['key' => 'flutterwave', 'value' => 'Flutter Wave'],
+    ['key' => 'esewa', 'value' => 'Esewa'],
+    ['key' => 'khalti', 'value' => 'Khalti'],
 ];
 
 const SMS_GATEWAY = [
