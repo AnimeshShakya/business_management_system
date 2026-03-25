@@ -66,6 +66,7 @@ trait Payment
             'maxicash' => 'payment/maxicash/pay',
             'esewa' => 'payment/esewa/pay',
             'khalti' => 'payment/khalti/pay',
+            'nepal_pay' => 'payment/nepal-pay/pay',
             'swish' => 'payment/swish/pay',
             'momo' => 'payment/momo/pay',
             'payfast' => 'payment/payfast/pay',

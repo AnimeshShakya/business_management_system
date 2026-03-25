@@ -927,6 +927,46 @@ class ConfigurationController extends Controller
                         ]),
                     ]
                 );
+
+                $nepalPaySetting = $this->addonSetting
+                    ->where('settings_type', 'payment_config')
+                    ->where('key_name', 'nepal_pay')
+                    ->first();
+
+                $nepalPayLiveValues = $nepalPaySetting?->live_values ?? [];
+                $nepalPayTestValues = $nepalPaySetting?->test_values ?? [];
+                $nepalPayAdditionalData = $nepalPaySetting?->additional_data ? json_decode($nepalPaySetting->additional_data, true) : [];
+
+                $normalizedNepalPayLiveValues = [
+                    'gateway' => 'nepal_pay',
+                    'mode' => $nepalPaySetting?->mode ?? 'test',
+                    'status' => (string)($nepalPayLiveValues['status'] ?? $nepalPaySetting?->is_active ?? 0),
+                    'redirect_url' => $nepalPayLiveValues['redirect_url'] ?? '',
+                ];
+
+                $normalizedNepalPayTestValues = [
+                    'gateway' => 'nepal_pay',
+                    'mode' => $nepalPaySetting?->mode ?? 'test',
+                    'status' => (string)($nepalPayTestValues['status'] ?? $nepalPaySetting?->is_active ?? 0),
+                    'redirect_url' => $nepalPayTestValues['redirect_url'] ?? '',
+                ];
+
+                $this->addonSetting->updateOrCreate(
+                    ['key_name' => 'nepal_pay', 'settings_type' => 'payment_config'],
+                    [
+                        'key_name' => 'nepal_pay',
+                        'live_values' => $normalizedNepalPayLiveValues,
+                        'test_values' => $normalizedNepalPayTestValues,
+                        'settings_type' => 'payment_config',
+                        'mode' => $nepalPaySetting?->mode ?? 'test',
+                        'is_active' => (int)($nepalPaySetting?->is_active ?? 0),
+                        'additional_data' => json_encode([
+                            'gateway_title' => $nepalPayAdditionalData['gateway_title'] ?? 'NepalPay',
+                            'gateway_image' => $nepalPayAdditionalData['gateway_image'] ?? '',
+                            'storage' => $nepalPayAdditionalData['storage'] ?? getDisk(),
+                        ]),
+                    ]
+                );
             }
 
 

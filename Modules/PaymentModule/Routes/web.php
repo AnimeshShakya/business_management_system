@@ -4,6 +4,7 @@ use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 use Modules\PaymentModule\Http\Controllers\EsewaPaymentController;
 use Modules\PaymentModule\Http\Controllers\KhaltiPaymentController;
+use Modules\PaymentModule\Http\Controllers\NepalPayPaymentController;
 use Modules\PaymentModule\Http\Controllers\PaytmController;
 use Modules\PaymentModule\Http\Controllers\PaymentController;
 use Modules\PaymentModule\Http\Controllers\PaystackController;
@@ -44,6 +45,13 @@ if (!$isPublished) {
             Route::get('pay', [KhaltiPaymentController::class, 'index'])->name('pay');
             Route::match(['get', 'post'], 'success', [KhaltiPaymentController::class, 'success'])->name('success');
             Route::match(['get', 'post'], 'failure', [KhaltiPaymentController::class, 'failure'])->name('failure');
+        });
+
+        //NEPALPAY
+        Route::group(['prefix' => 'nepal-pay', 'as' => 'nepal-pay.'], function () {
+            Route::get('pay', [NepalPayPaymentController::class, 'index'])->name('pay');
+            Route::match(['get', 'post'], 'success', [NepalPayPaymentController::class, 'success'])->name('success');
+            Route::match(['get', 'post'], 'failure', [NepalPayPaymentController::class, 'failure'])->name('failure');
         });
 
         //SSLCOMMERZ

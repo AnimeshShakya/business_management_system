@@ -38,7 +38,7 @@ class PaymentConfigController extends Controller
     public function payment_config_set(Request $request): JsonResponse
     {
         $validation = [
-            'gateway' => 'required|in:esewa,khalti',
+            'gateway' => 'required|in:esewa,khalti,nepal_pay',
             'mode' => 'required|in:live,test'
         ];
         $additional_data = [];
@@ -54,6 +54,11 @@ class PaymentConfigController extends Controller
                 'status' => 'required|in:1,0',
                 'secret_key' => 'required',
                 'website_url' => 'nullable|url',
+            ];
+        } elseif ($request['gateway'] == 'nepal_pay') {
+            $additional_data = [
+                'status' => 'required|in:1,0',
+                'redirect_url' => 'required|url',
             ];
         }
         $validator = Validator::make($request->all(), array_merge($validation, $additional_data));

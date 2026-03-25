@@ -96,6 +96,11 @@ class PaymentConfigController extends Controller
                 'secret_key' => 'required_if:status,1|string',
                 'website_url' => 'nullable|url',
             ];
+        } elseif ($request['gateway'] == 'nepal_pay') {
+            $additionalData = [
+                'status' => 'required|in:1,0',
+                'redirect_url' => 'required_if:status,1|url',
+            ];
         } elseif ($request['gateway'] == 'cash_after_service') {
             $additionalData = [
                 'status' => 'required|in:1,0'

@@ -4,6 +4,7 @@
 const GATEWAYS_PAYMENT_METHODS = [
     ['key' => 'esewa', 'value' => 'eSewa'],
     ['key' => 'khalti', 'value' => 'Khalti'],
+    ['key' => 'nepal_pay', 'value' => 'NepalPay'],
 ];
 
 //currencies

@@ -101,6 +101,7 @@ const DIGITAL_PAYMENT_METHODS = [
     // ['key' => 'flutterwave', 'value' => 'Flutter Wave'],
     ['key' => 'esewa', 'value' => 'Esewa'],
     ['key' => 'khalti', 'value' => 'Khalti'],
+    ['key' => 'nepal_pay', 'value' => 'NepalPay'],
 ];
 
 const SMS_GATEWAY = [

@@ -1297,6 +1297,9 @@ if (!function_exists('getPaymentGatewaySupportedCurrencies')) {
            "khalti" => [
                "NPR" => "Nepalese Rupee"
            ],
+           "nepal_pay" => [
+               "NPR" => "Nepalese Rupee"
+           ],
            "fatoorah" => [
                "KWD" => "Kuwaiti Dinar",
                "SAR" => "Saudi Riyal"
