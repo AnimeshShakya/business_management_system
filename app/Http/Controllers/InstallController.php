@@ -38,6 +38,7 @@ class InstallController extends Controller
             $permission['mbstring'] = extension_loaded('mbstring');
             $permission['openssl'] = extension_loaded('openssl');
             $permission['pdo'] = defined('PDO::ATTR_DRIVER_NAME');
+            $permission['pdo_mysql'] = extension_loaded('pdo_mysql');
             $permission['tokenizer'] = extension_loaded('tokenizer');
             $permission['xml'] = extension_loaded('xml');
             $permission['zip'] = extension_loaded('zip');
@@ -233,12 +234,22 @@ class InstallController extends Controller
     function check_database_connection($db_host = "", $db_name = "", $db_user = "", $db_pass = ""): bool
     {
         try {
-            if (@mysqli_connect($db_host, $db_user, $db_pass, $db_name)) {
-                return true;
-            } else {
-                return false;
+            if (function_exists('mysqli_connect')) {
+                return @mysqli_connect($db_host, $db_user, $db_pass, $db_name) !== false;
             }
-        } catch (\Exception $exception) {
+
+            if (extension_loaded('pdo_mysql')) {
+                $dsn = "mysql:host={$db_host};dbname={$db_name};port=3306;charset=utf8mb4";
+                $pdo = new \PDO($dsn, $db_user, $db_pass, [
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                    \PDO::ATTR_TIMEOUT => 5,
+                ]);
+                $pdo = null;
+                return true;
+            }
+
+            return false;
+        } catch (\Throwable $exception) {
             return false;
         }
     }
