@@ -79,19 +79,23 @@ class ConfigController extends Controller
 
         $country = [];
 
-        foreach ($countryData as $key => $item) {
-            $item['full_name'] = get_language_name($item['code']);
+        foreach (($countryData ?? []) as $key => $item) {
+            $item['full_name'] = get_language_name($item['code'] ?? 'en');
             $country[$key] = $item;
         }
 
-        $freeTrialType = ((business_config('free_trial_type', 'subscription_Setting'))->live_values ?? null);
-        $freeTrialPeriod = (int)((business_config('free_trial_period', 'subscription_Setting'))->live_values ?? 0);
+        $freeTrialType = business_config('free_trial_type', 'subscription_Setting')?->live_values ?? null;
+        $freeTrialPeriod = (int)(business_config('free_trial_period', 'subscription_Setting')?->live_values ?? 0);
 
         if ($freeTrialType == 'month') {
             $freeTrialPeriod = (int) floor($freeTrialPeriod / 30);
         }
 
-        $dataValues = Setting::where('settings_type', 'sms_config')->get();
+        $dataValues = collect();
+        $settingTable = (new Setting())->getTable();
+        if (Schema::hasTable($settingTable)) {
+            $dataValues = Setting::where('settings_type', 'sms_config')->get();
+        }
         $count = 0;
         foreach ($dataValues as $gateway) {
             $status = $gateway?->live_values['status'] ?? 0;
@@ -112,61 +116,74 @@ class ConfigController extends Controller
             'email' => $emailConfig
         ];
 
+        $freeTrialPeriodSetting = business_config('free_trial_period', 'subscription_Setting');
+        $termsAndConditionsSetting = business_config('terms_and_conditions', 'pages_setup');
+        $refundPolicySetting = business_config('refund_policy', 'pages_setup');
+        $cancellationPolicySetting = business_config('cancellation_policy', 'pages_setup');
+        $phoneVerificationSetup = login_setup('phone_verification');
+        $emailVerificationSetup = login_setup('email_verification');
+        $minimumWithdrawAmountSetting = business_config('minimum_withdraw_amount', 'business_information');
+        $maximumWithdrawAmountSetting = business_config('maximum_withdraw_amount', 'business_information');
+        $providerAppSettings = business_config('provider_app_settings', 'app_settings')?->live_values;
+        if (is_string($providerAppSettings)) {
+            $providerAppSettings = json_decode($providerAppSettings);
+        }
+
 
         return response()->json(response_formatter(DEFAULT_200, [
             'maintenance' => $this->checkMaintenanceMode(),
-            'free_trial_status' => (int)((business_config('free_trial_period', 'subscription_Setting'))->is_active ?? 0),
+            'free_trial_status' => (int)($freeTrialPeriodSetting?->is_active ?? 0),
             'free_trial_period' => $freeTrialPeriod,
             'free_trial_type' => $freeTrialType,
-            'deadline_warning' => (int)((business_config('deadline_warning', 'subscription_Setting'))->live_values ?? null),
-            'deadline_warning_message' => ((business_config('deadline_warning_message', 'subscription_Setting'))->live_values ?? null),
-            'usage_time' => (int)((business_config('usage_time', 'subscription_Setting'))->live_values ?? null),
-            'commission_base' => (int)((business_config('provider_commision', 'provider_config'))->live_values ?? null),
-            'subscription_base' => (int)((business_config('provider_subscription', 'provider_config'))->live_values ?? null),
-            'provider_can_cancel_booking' => (int)((business_config('provider_can_cancel_booking', 'provider_config'))->live_values ?? null),
-            'provider_self_registration' => (int)((business_config('provider_self_registration', 'provider_config'))->live_values ?? null),
-            'provider_self_delete' => (int)((business_config('provider_self_delete', 'provider_config'))->live_values ?? null),
-            'min_payable_amount' => (int)((business_config('min_payable_amount', 'provider_config'))->live_values ?? null),
-            'provider_can_edit_booking' => (int)((business_config('provider_can_edit_booking', 'provider_config'))->live_values ?? null),
-            'currency_symbol_position' => (business_config('currency_symbol_position', 'business_information'))->live_values ?? null,
-            'business_name' => (business_config('business_name', 'business_information'))->live_values ?? null,
+            'deadline_warning' => (int)(business_config('deadline_warning', 'subscription_Setting')?->live_values ?? 0),
+            'deadline_warning_message' => business_config('deadline_warning_message', 'subscription_Setting')?->live_values ?? null,
+            'usage_time' => (int)(business_config('usage_time', 'subscription_Setting')?->live_values ?? 0),
+            'commission_base' => (int)(business_config('provider_commision', 'provider_config')?->live_values ?? 0),
+            'subscription_base' => (int)(business_config('provider_subscription', 'provider_config')?->live_values ?? 0),
+            'provider_can_cancel_booking' => (int)(business_config('provider_can_cancel_booking', 'provider_config')?->live_values ?? 0),
+            'provider_self_registration' => (int)(business_config('provider_self_registration', 'provider_config')?->live_values ?? 0),
+            'provider_self_delete' => (int)(business_config('provider_self_delete', 'provider_config')?->live_values ?? 0),
+            'min_payable_amount' => (int)(business_config('min_payable_amount', 'provider_config')?->live_values ?? 0),
+            'provider_can_edit_booking' => (int)(business_config('provider_can_edit_booking', 'provider_config')?->live_values ?? 0),
+            'currency_symbol_position' => business_config('currency_symbol_position', 'business_information')?->live_values ?? null,
+            'business_name' => business_config('business_name', 'business_information')?->live_values ?? null,
             'logo_full_path' => getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'business_information', path: 'business/',  defaultPath : 'public/assets/admin-module/img/media/banner-upload-file.png'),
             'favicon_full_path' =>  getBusinessSettingsImageFullPath(key: 'business_favicon', settingType: 'business_information', path: 'business/',  defaultPath : 'public/assets/admin-module/img/media/upload-file.png'),
-            'country_code' => (business_config('country_code', 'business_information'))->live_values ?? null,
-            'business_address' => (business_config('business_address', 'business_information'))->live_values ?? null,
-            'business_phone' => (business_config('business_phone', 'business_information'))->live_values ?? null,
-            'business_email' => (business_config('business_email', 'business_information'))->live_values ?? null,
+            'country_code' => business_config('country_code', 'business_information')?->live_values ?? null,
+            'business_address' => business_config('business_address', 'business_information')?->live_values ?? null,
+            'business_phone' => business_config('business_phone', 'business_information')?->live_values ?? null,
+            'business_email' => business_config('business_email', 'business_information')?->live_values ?? null,
             'base_url' => rtrim(url('/'), '/') . '/api/v1/',
-            'currency_decimal_point' => (business_config('currency_decimal_point', 'business_information'))->live_values ?? null,
-            'currency_code' => (business_config('currency_code', 'business_information'))->live_values ?? null,
+            'currency_decimal_point' => business_config('currency_decimal_point', 'business_information')?->live_values ?? null,
+            'currency_code' => business_config('currency_code', 'business_information')?->live_values ?? null,
             'currency_symbol' => currency_symbol() ?? '',
             'about_us' => route('about-us'),
             'privacy_policy' => route('privacy-policy'),
-            'terms_and_conditions' => (business_config('terms_and_conditions', 'pages_setup'))->is_active ? route('terms-and-conditions') : "",
-            'refund_policy' => (business_config('refund_policy', 'pages_setup'))->is_active ? route('refund-policy') : "",
-            'cancellation_policy' => (business_config('cancellation_policy', 'pages_setup'))->is_active ? route('cancellation-policy') : "",
+            'terms_and_conditions' => $termsAndConditionsSetting?->is_active ? route('terms-and-conditions') : "",
+            'refund_policy' => $refundPolicySetting?->is_active ? route('refund-policy') : "",
+            'cancellation_policy' => $cancellationPolicySetting?->is_active ? route('cancellation-policy') : "",
             'default_location' => ['default' => [
-                'lat' => (business_config('address_latitude', 'business_information'))->live_values ?? 23.811842872190,
-                'lon' => (business_config('address_longitude', 'business_information'))->live_values ?? 90.66504678008192
+                'lat' => business_config('address_latitude', 'business_information')?->live_values ?? 23.811842872190,
+                'lon' => business_config('address_longitude', 'business_information')?->live_values ?? 90.66504678008192
             ]],
             'pagination_limit' => (int)pagination_limit(),
-            'time_format' => (business_config('time_format', 'business_information'))->live_values ?? '24h',
-            'max_cash_in_hand_limit_provider' => (business_config('max_cash_in_hand_limit_provider', 'provider_config'))->live_values ?? 0,
-            'suspend_on_exceed_cash_limit_provider' => (business_config('suspend_on_exceed_cash_limit_provider', 'provider_config'))->live_values ?? 0,
-            'default_commission' => (business_config('default_commission', 'business_information'))->live_values,
+            'time_format' => business_config('time_format', 'business_information')?->live_values ?? '24h',
+            'max_cash_in_hand_limit_provider' => business_config('max_cash_in_hand_limit_provider', 'provider_config')?->live_values ?? 0,
+            'suspend_on_exceed_cash_limit_provider' => business_config('suspend_on_exceed_cash_limit_provider', 'provider_config')?->live_values ?? 0,
+            'default_commission' => business_config('default_commission', 'business_information')?->live_values ?? 0,
             'admin_details' => User::select('id', 'first_name', 'last_name', 'profile_image')->where('user_type', ADMIN_USER_TYPES[0])->first(),
-            'footer_text' => (business_config('footer_text', 'business_information'))->live_values ?? null,
-            'min_versions' => json_decode((business_config('provider_app_settings', 'app_settings'))->live_values ?? null),
-            'minimum_withdraw_amount' => business_config('minimum_withdraw_amount', 'business_information') ? ((float)(business_config('minimum_withdraw_amount', 'business_information'))->live_values ?? null) : null,
-            'maximum_withdraw_amount' => business_config('maximum_withdraw_amount', 'business_information') ? ((float)(business_config('maximum_withdraw_amount', 'business_information'))->live_values ?? null) : null,
-            'phone_number_visibility_for_chatting' => (int)((business_config('phone_number_visibility_for_chatting', 'business_information'))->live_values ?? 0),
-            'bid_offers_visibility_for_providers' => (int)((business_config('bid_offers_visibility_for_providers', 'bidding_system'))->live_values ?? 0),
-            'bidding_status' => (int)((business_config('bidding_status', 'bidding_system'))->live_values ?? 0),
-            'digital_payment' => (int)((business_config('digital_payment', 'service_setup'))->live_values ?? 0),
-            'phone_verification' => (((login_setup('phone_verification'))->value ?? 0 ) == 1 && $count == 1 ? 1 : 0),
-            'email_verification' => (int)((login_setup('email_verification'))->value ?? 0),
+            'footer_text' => business_config('footer_text', 'business_information')?->live_values ?? null,
+            'min_versions' => $providerAppSettings,
+            'minimum_withdraw_amount' => $minimumWithdrawAmountSetting ? ((float)($minimumWithdrawAmountSetting->live_values ?? null)) : null,
+            'maximum_withdraw_amount' => $maximumWithdrawAmountSetting ? ((float)($maximumWithdrawAmountSetting->live_values ?? null)) : null,
+            'phone_number_visibility_for_chatting' => (int)(business_config('phone_number_visibility_for_chatting', 'business_information')?->live_values ?? 0),
+            'bid_offers_visibility_for_providers' => (int)(business_config('bid_offers_visibility_for_providers', 'bidding_system')?->live_values ?? 0),
+            'bidding_status' => (int)(business_config('bidding_status', 'bidding_system')?->live_values ?? 0),
+            'digital_payment' => (int)(business_config('digital_payment', 'service_setup')?->live_values ?? 0),
+            'phone_verification' => (($phoneVerificationSetup?->value ?? 0) == 1 && $count == 1 ? 1 : 0),
+            'email_verification' => (int)($emailVerificationSetup?->value ?? 0),
             'otp_resend_time' => (int)(business_config('otp_resend_time', 'otp_login_setup'))?->live_values ?? null,
-            'booking_otp_verification' => (int)(business_config('booking_otp', 'booking_setup'))->live_values ?? null,
+            'booking_otp_verification' => (int)(business_config('booking_otp', 'booking_setup')?->live_values ?? 0),
             'service_complete_photo_evidence' => (int)(business_config('service_complete_photo_evidence', 'booking_setup'))?->live_values ?? null,
             'booking_additional_charge' => (int)(business_config('booking_additional_charge', 'booking_setup'))?->live_values ?? null,
             'additional_charge_label_name' => (string)(business_config('additional_charge_label_name', 'booking_setup'))?->live_values ?? null,
@@ -181,7 +198,7 @@ class ConfigController extends Controller
             'forgot_password_verification_method' => $forgotPasswordVerificationMethod,
             'provider_can_reply_review' => (int) business_config('provider_can_reply_review', 'provider_config')?->live_values,
             'app_environment' => env('APP_ENV'),
-            'service_at_provider_place' => (int)((business_config('service_at_provider_place', 'provider_config'))->live_values ?? 0),
+            'service_at_provider_place' => (int)(business_config('service_at_provider_place', 'provider_config')?->live_values ?? 0),
             'business_pages' => BusinessPageSetting::where('is_active', 1)->orderByDesc('is_default')->orderBy('created_at', 'ASC')->get()->map(function ($page){
                 return [
                     'page_key'        => $page->page_key,
@@ -190,8 +207,8 @@ class ConfigController extends Controller
                     'image_full_path' => $page->image_full_path,
                 ];
             }),
-            'serviceman_can_cancel_booking' => (int)((business_config('serviceman_can_cancel_booking', 'serviceman_config'))->live_values ?? 0),
-            'serviceman_can_edit_booking' => (int)((business_config('serviceman_can_edit_booking', 'serviceman_config'))->live_values ?? 0 ),
+            'serviceman_can_cancel_booking' => (int)(business_config('serviceman_can_cancel_booking', 'serviceman_config')?->live_values ?? 0),
+            'serviceman_can_edit_booking' => (int)(business_config('serviceman_can_edit_booking', 'serviceman_config')?->live_values ?? 0 ),
             'max_image_upload_size' => uploadMaxFileSize('image'),
             'max_video_upload_size' => uploadMaxFileSize('file'),
         ]), 200);

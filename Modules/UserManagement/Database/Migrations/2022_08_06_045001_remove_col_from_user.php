@@ -13,9 +13,11 @@ class RemoveColFromUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role_id');
-        });
+        if (Schema::hasColumn('users', 'role_id')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('role_id');
+            });
+        }
     }
 
     /**

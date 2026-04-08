@@ -82,7 +82,7 @@ if (!function_exists('pagination_limit')) {
 if (!function_exists('currency_code')) {
     function currency_code(): string
     {
-        $code = business_config('currency_code', 'business_information')['live_values'];
+        $code = business_config('currency_code', 'business_information')?->live_values;
         return $code ?? 'USD';
     }
 }
@@ -90,7 +90,7 @@ if (!function_exists('currency_code')) {
 if (!function_exists('currency_symbol')) {
     function currency_symbol(): string
     {
-        $code = business_config('currency_code', 'business_information')['live_values'];
+        $code = business_config('currency_code', 'business_information')?->live_values;
         $symbol = '$';
         foreach (CURRENCIES as $currency) {
             if ($currency['code'] == $code) {
@@ -105,9 +105,9 @@ if (!function_exists('currency_symbol')) {
 if (!function_exists('with_currency_symbol')) {
     function with_currency_symbol($value): string
     {
-        $position = business_config('currency_symbol_position', 'business_information')['live_values']??'right';
-        $decimal_point = business_config('currency_decimal_point', 'business_information')['live_values']??2;
-        $code = business_config('currency_code', 'business_information')['live_values'];
+        $position = business_config('currency_symbol_position', 'business_information')?->live_values ?? 'right';
+        $decimal_point = business_config('currency_decimal_point', 'business_information')?->live_values ?? 2;
+        $code = business_config('currency_code', 'business_information')?->live_values;
         $symbol = '$';
         foreach (CURRENCIES as $currency) {
             if ($currency['code'] == $code) {
@@ -127,7 +127,7 @@ if (!function_exists('with_currency_symbol')) {
 if (!function_exists('with_decimal_point')) {
     function with_decimal_point($value): float
     {
-        $decimal_point = business_config('currency_decimal_point', 'business_information')['live_values']??2;
+        $decimal_point = business_config('currency_decimal_point', 'business_information')?->live_values ?? 2;
         return (float)(number_format($value, $decimal_point, '.', ''));
     }
 }

@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColToBookingsTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -30,4 +29,4 @@ class AddColToBookingsTable extends Migration
             $table->dropColumn('service_address_location');
         });
     }
-}
+};

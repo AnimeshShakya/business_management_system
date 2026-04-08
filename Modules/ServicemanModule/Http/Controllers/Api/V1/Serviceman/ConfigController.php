@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Modules\BusinessSettingsModule\Entities\BusinessPageSetting;
 use Modules\PaymentModule\Entities\Setting;
@@ -43,13 +44,17 @@ class ConfigController extends Controller
 
         $country = [];
 
-        foreach ($countryData as $item) {
-            if ($item['status'] == 1) {
+        foreach (($countryData ?? []) as $item) {
+            if (($item['status'] ?? 0) == 1) {
                 $country[] = $item;
             }
         }
 
-        $dataValues = Setting::where('settings_type', 'sms_config')->get();
+        $dataValues = collect();
+        $settingTable = (new Setting())->getTable();
+        if (Schema::hasTable($settingTable)) {
+            $dataValues = Setting::where('settings_type', 'sms_config')->get();
+        }
         $count = 0;
         foreach ($dataValues as $gateway) {
             $status = $gateway?->live_values['status'] ?? 0;
@@ -70,40 +75,50 @@ class ConfigController extends Controller
             'email' => $emailConfig
         ];
 
+        $termsAndConditionsSetting = business_config('terms_and_conditions', 'pages_setup');
+        $refundPolicySetting = business_config('refund_policy', 'pages_setup');
+        $cancellationPolicySetting = business_config('cancellation_policy', 'pages_setup');
+        $phoneVerificationSetup = login_setup('phone_verification');
+        $emailVerificationSetup = login_setup('email_verification');
+        $servicemanAppSettings = business_config('serviceman_app_settings', 'app_settings')?->live_values;
+        if (is_string($servicemanAppSettings)) {
+            $servicemanAppSettings = json_decode($servicemanAppSettings);
+        }
+
         return response()->json(response_formatter(DEFAULT_200, [
             'maintenance' => $this->checkMaintenanceMode(),
-            'currency_symbol_position' => (business_config('currency_symbol_position', 'business_information'))->live_values ?? null,
+            'currency_symbol_position' => business_config('currency_symbol_position', 'business_information')?->live_values ?? null,
             'serviceman_can_cancel_booking' => (int)(business_config('serviceman_can_cancel_booking', 'serviceman_config'))?->live_values,
             'serviceman_can_edit_booking' => (int)(business_config('serviceman_can_edit_booking', 'serviceman_config'))?->live_values,
-            'business_name' => (business_config('business_name', 'business_information'))->live_values ?? null,
+            'business_name' => business_config('business_name', 'business_information')?->live_values ?? null,
             'logo_full_path' => getBusinessSettingsImageFullPath(key: 'business_logo', settingType: 'business_information', path: 'business/',  defaultPath : 'public/assets/admin-module/img/media/banner-upload-file.png'),
             'favicon_full_path' =>  getBusinessSettingsImageFullPath(key: 'business_favicon', settingType: 'business_information', path: 'business/',  defaultPath : 'public/assets/admin-module/img/media/upload-file.png'),
-            'country_code' => (business_config('country_code', 'business_information'))->live_values ?? null,
-            'business_address' => (business_config('business_address', 'business_information'))->live_values ?? null,
-            'business_phone' => (business_config('business_phone', 'business_information'))->live_values ?? null,
-            'business_email' => (business_config('business_email', 'business_information'))->live_values ?? null,
+            'country_code' => business_config('country_code', 'business_information')?->live_values ?? null,
+            'business_address' => business_config('business_address', 'business_information')?->live_values ?? null,
+            'business_phone' => business_config('business_phone', 'business_information')?->live_values ?? null,
+            'business_email' => business_config('business_email', 'business_information')?->live_values ?? null,
             'base_url' => rtrim(url('/'), '/') . '/api/v1/',
-            'currency_decimal_point' => (business_config('currency_decimal_point', 'business_information'))->live_values ?? null,
-            'currency_code' => (business_config('currency_code', 'business_information'))->live_values ?? null,
+            'currency_decimal_point' => business_config('currency_decimal_point', 'business_information')?->live_values ?? null,
+            'currency_code' => business_config('currency_code', 'business_information')?->live_values ?? null,
             'currency_symbol' => currency_symbol() ?? '',
             'about_us' => route('about-us'),
             'privacy_policy' => route('privacy-policy'),
-            'terms_and_conditions' => (business_config('terms_and_conditions', 'pages_setup'))->is_active ? route('terms-and-conditions') : "",
-            'refund_policy' => (business_config('refund_policy', 'pages_setup'))->is_active ? route('refund-policy') : "",
-            'cancellation_policy' => (business_config('cancellation_policy', 'pages_setup'))->is_active ? route('cancellation-policy') : "",
+            'terms_and_conditions' => $termsAndConditionsSetting?->is_active ? route('terms-and-conditions') : "",
+            'refund_policy' => $refundPolicySetting?->is_active ? route('refund-policy') : "",
+            'cancellation_policy' => $cancellationPolicySetting?->is_active ? route('cancellation-policy') : "",
             'default_location' => ['default' => [
-                'lat' => (business_config('address_latitude', 'business_information'))->live_values ?? 23.811842872190,
-                'lon' => (business_config('address_longitude', 'business_information'))->live_values ?? 90.66504678008192
+                'lat' => business_config('address_latitude', 'business_information')?->live_values ?? 23.811842872190,
+                'lon' => business_config('address_longitude', 'business_information')?->live_values ?? 90.66504678008192
             ]],
-            'sms_verification' => (business_config('sms_verification', 'service_setup'))->live_values ?? null,
+            'sms_verification' => business_config('sms_verification', 'service_setup')?->live_values ?? null,
             'pagination_limit' => (int)pagination_limit(),
-            'time_format' => (business_config('time_format', 'business_information'))->live_values ?? '24h',
-            'footer_text' => (business_config('footer_text', 'business_information'))->live_values ?? null,
-            'min_versions' => json_decode((business_config('serviceman_app_settings', 'app_settings'))->live_values ?? null),
-            'phone_verification' => (((login_setup('phone_verification'))->value ?? 0 ) == 1 && $count == 1 ? 1 : 0),
-            'email_verification' => (int)((login_setup('email_verification'))->value ?? 0),
+            'time_format' => business_config('time_format', 'business_information')?->live_values ?? '24h',
+            'footer_text' => business_config('footer_text', 'business_information')?->live_values ?? null,
+            'min_versions' => $servicemanAppSettings,
+            'phone_verification' => (($phoneVerificationSetup?->value ?? 0) == 1 && $count == 1 ? 1 : 0),
+            'email_verification' => (int)($emailVerificationSetup?->value ?? 0),
             'otp_resend_time' => (int)(business_config('otp_resend_time', 'otp_login_setup'))?->live_values ?? null,
-            'booking_otp_verification' => (int)(business_config('booking_otp', 'booking_setup'))->live_values ?? null,
+            'booking_otp_verification' => (int)(business_config('booking_otp', 'booking_setup')?->live_values ?? 0),
             'service_complete_photo_evidence' => (int)(business_config('service_complete_photo_evidence', 'booking_setup'))?->live_values ?? null,
             'booking_additional_charge' => (int)(business_config('booking_additional_charge', 'booking_setup'))?->live_values ?? null,
             'additional_charge_label_name' => (string)(business_config('additional_charge_label_name', 'booking_setup'))?->live_values ?? null,

@@ -6248,4 +6248,5 @@ _Message' => 'Customer notification for provider bid offer
   'Copy' => 'Copy',
   'To get site key and secret key Go to the Credentials page' => 'To get site key and secret key Go to the Credentials page',
   'Not_Configured' => 'Not Configured',
+  'No provider or service is available within this zone' => 'No provider or service is available within this zone',
 );
